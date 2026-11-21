@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Pembelajaran Interaktif - Aturan di Sekolah | MI Almaarif 02 Singosari</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Fredoka & Nunito for Child-Friendly Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              dark: '#0f3a1e'
+            },
+            accent: {
+              yellow: '#fbbf24',
+              orange: '#f97316',
+              sky: '#38bdf8',
+              pink: '#f472b6',
+              purple: '#c084fc'
+            }
+          },
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f0fdf4;
+      background-image: radial-gradient(#bbf7d0 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+    }
+    
+    .font-heading {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Bouncy animations */
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-bounce-subtle {
+      animation: bounce-subtle 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+      50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.8); }
+    }
+    .glow-effect {
+      animation: pulse-glow 2s infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #22c55e;
+      border-radius: 10px;
+    }
+
+    /* Print styles for digital certificate */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #certificate-modal, #certificate-content, #certificate-content * {
+        visibility: visible;
+      }
+      #certificate-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: white !important;
+        box-shadow: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-brand-200 selection:text-brand-900">
+
+  <!-- ==================== HEADER UTAMA ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-4 border-brand-400 shadow-md transition-all">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Logo & Identitas Sekolah -->
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-tr from-brand-600 to-brand-400 rounded-2xl flex items-center justify-center text-white shadow-lg transform hover:scale-105 transition">
+          <i class="fa-solid fa-graduation-cap text-2xl md:text-3xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-brand-100 text-brand-800 text-xs font-bold px-2 py-0.5 rounded-full border border-brand-300 font-heading">
+              Cakep MIA02
+            </span>
+            <span class="text-xs text-slate-500 font-semibold hidden sm:inline">Pendidikan Pancasila • Kelas 1 SD/MI</span>
+          </div>
+          <h1 class="text-lg md:text-xl font-bold font-heading text-brand-900 leading-tight">
+            MI ALMAARIF 02 SINGOSARI
+          </h1>
+          <p class="text-xs text-brand-700 font-medium">Modul Media Pembelajaran: Aturan di Sekolah</p>
+        </div>
+      </div>
+
+      <!-- User Active Bar & Actions -->
+      <div class="flex items-center gap-2 md:gap-3 ml-auto">
+        <!-- Student Info Chip -->
+        <div id="student-chip" onclick="openStudentModal()" class="bg-emerald-50 hover:bg-emerald-100 border-2 border-brand-300 px-3 py-1.5 rounded-2xl flex items-center gap-2 cursor-pointer transition shadow-sm group">
+          <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shadow">
+            <i class="fa-solid fa-child"></i>
+          </div>
+          <div class="text-left leading-none">
+            <p class="text-[10px] text-slate-500 font-bold uppercase">Siswa Aktif</p>
+            <p id="chip-student-name" class="text-xs md:text-sm font-bold font-heading text-brand-900 truncate max-w-[110px] sm:max-w-[160px]">
+              Belum Mengisi
+            </p>
+          </div>
+          <i class="fa-solid fa-arrows-rotate text-xs text-brand-600 group-hover:rotate-180 transition-transform"></i>
+        </div>
+
+        <!-- Audio Sound Effects Toggle -->
+        <button id="btn-sound-toggle" onclick="toggleAudio()" class="w-10 h-10 rounded-2xl bg-amber-100 hover:bg-amber-200 border-2 border-amber-300 text-amber-700 flex items-center justify-center shadow hover:scale-105 transition" title="Efek Suara ON/OFF">
+          <i id="icon-sound" class="fa-solid fa-volume-high text-lg"></i>
+        </button>
+
+        <!-- Prompt & Info Button -->
+        <button onclick="switchTab('info')" class="hidden md:flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 border-2 border-indigo-200 text-indigo-700 px-3 py-2 rounded-2xl text-xs font-bold transition shadow-sm">
+          <i class="fa-solid fa-circle-info"></i> Info & Prompt
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== NAVIGATION BAR (TABS) ==================== -->
+  <nav class="bg-brand-600 text-white shadow-lg sticky top-[73px] z-30">
+    <div class="max-w-7xl mx-auto px-2">
+      <div class="flex items-center justify-around md:justify-center md:gap-4 py-2 overflow-x-auto no-scrollbar">
+        
+        <button onclick="switchTab('beranda')" id="tab-beranda" class="tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all bg-white text-brand-800 shadow">
+          <i class="fa-solid fa-house text-sm md:text-base"></i> <span>Beranda</span>
+        </button>
+
+        <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all hover:bg-brand-500/80">
+          <i class="fa-solid fa-book-open text-sm md:text-base"></i> <span>Materi Belajar</span>
+        </button>
+
+        <button onclick="switchTab('game')" id="tab-game" class="tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all hover:bg-brand-500/80">
+          <i class="fa-solid fa-gamepad text-sm md:text-base"></i> <span>Pilah Sikap</span>
+        </button>
+
+        <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all hover:bg-brand-500/80">
+          <i class="fa-solid fa-star text-sm md:text-base"></i> <span>Kuis 10 Soal</span>
+        </button>
+
+        <button onclick="switchTab('masukan')" id="tab-masukan" class="tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all hover:bg-brand-500/80">
+          <i class="fa-solid fa-comment-dots text-sm md:text-base"></i> <span>Masukan & Rekap</span>
+        </button>
+
+        <button onclick="switchTab('info')" id="tab-info" class="tab-btn md:hidden px-3 py-2 rounded-2xl font-heading font-bold text-xs flex items-center gap-2 transition-all hover:bg-brand-500/80">
+          <i class="fa-solid fa-circle-info text-sm"></i> <span>Info</span>
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== UTAMA (MAIN CONTAINER) ==================== -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- ---------------- SECTION 1: BERANDA ---------------- -->
+    <section id="sec-beranda" class="space-y-6">
+      
+      <!-- Hero Banner -->
+      <div class="bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-400 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-20 pointer-events-none">
+          <i class="fa-solid fa-school text-[220px]"></i>
+        </div>
+
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase border border-white/30">
+            <i class="fa-solid fa-award text-yellow-300"></i> Media Pembelajaran Cakep MIA02
+          </div>
+          
+          <h2 class="text-3xl md:text-5xl font-extrabold font-heading leading-tight">
+            Selamat Datang, <span id="hero-student-name" class="text-yellow-300 underline decoration-wavy decoration-yellow-300">Teman Kecil!</span> 👋
+          </h2>
+
+          <p class="text-brand-50 text-base md:text-xl font-medium leading-relaxed">
+            Mari belajar dengan gembira mengenal <strong class="text-white">"Aturan di Sekolah"</strong>. Aplikasi ini dibuat khusus untuk adik-adik Kelas 1 SD/MI Almaarif 02 Singosari!
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-3">
+            <button onclick="switchTab('materi'); playSynthSound('click')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-extrabold px-6 py-3.5 rounded-2xl shadow-lg hover:scale-105 active:scale-95 transition flex items-center gap-2 text-base">
+              <i class="fa-solid fa-play-circle text-xl"></i> Mulai Belajar Materi
+            </button>
+            
+            <button onclick="switchTab('game'); playSynthSound('click')" class="bg-white hover:bg-slate-100 text-brand-800 font-heading font-bold px-6 py-3.5 rounded-2xl shadow hover:scale-105 active:scale-95 transition flex items-center gap-2 text-base">
+              <i class="fa-solid fa-gamepad text-emerald-600 text-xl"></i> Main Game Pilah Sikap
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Feature Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Card 1 -->
+        <div onclick="switchTab('materi')" class="bg-white p-5 rounded-3xl border-2 border-brand-200 shadow-md hover:shadow-xl transition-all cursor-pointer group hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-book-bookmark"></i>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800">1. Materi Bergambar & Suara</h3>
+          <p class="text-xs text-slate-600 mt-1">Belajar aturan sekolah dilengkapi fitur tombol suara baca otomatis.</p>
+          <div class="mt-4 text-xs font-bold text-brand-600 flex items-center gap-1">
+            Buka Materi <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div onclick="switchTab('game')" class="bg-white p-5 rounded-3xl border-2 border-amber-200 shadow-md hover:shadow-xl transition-all cursor-pointer group hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-hands-clapping"></i>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800">2. Game Pilah Sikap</h3>
+          <p class="text-xs text-slate-600 mt-1">Sortir perbuatan baik (tertib) vs perbuatan melanggar aturan.</p>
+          <div class="mt-4 text-xs font-bold text-amber-600 flex items-center gap-1">
+            Main Sekarang <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div onclick="switchTab('kuis')" class="bg-white p-5 rounded-3xl border-2 border-sky-200 shadow-md hover:shadow-xl transition-all cursor-pointer group hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800">3. Kuis 10 Soal & Sertifikat</h3>
+          <p class="text-xs text-slate-600 mt-1">Uji pemahamanmu dan raih sertifikat kelulusan digital resmi!</p>
+          <div class="mt-4 text-xs font-bold text-sky-600 flex items-center gap-1">
+            Mulai Kuis <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div onclick="switchTab('masukan')" class="bg-white p-5 rounded-3xl border-2 border-purple-200 shadow-md hover:shadow-xl transition-all cursor-pointer group hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <h3 class="font-heading font-bold text-lg text-slate-800">4. Kesan & Masukan Siswa</h3>
+          <p class="text-xs text-slate-600 mt-1">Kirim emotikon dan pesan tentang pengalaman belajarmu.</p>
+          <div class="mt-4 text-xs font-bold text-purple-600 flex items-center gap-1">
+            Beri Masukan <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Identity & Profile Summary Banner -->
+      <div class="bg-white rounded-3xl p-6 border-2 border-brand-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white font-bold flex items-center justify-center text-xl shadow">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase">Guru & Pembuat Media</p>
+            <h4 class="font-heading font-bold text-lg text-brand-900">Muti'atul Hasanah, S.Pd.I</h4>
+            <p class="text-xs text-slate-600">Guru MI Almaarif 02 Singosari • Pengembang Media Interaktif Pembelajaran Pancasila</p>
+          </div>
+        </div>
+        <button onclick="openStudentModal()" class="w-full md:w-auto bg-brand-100 hover:bg-brand-200 text-brand-800 px-4 py-2.5 rounded-xl font-heading font-bold text-xs transition border border-brand-300 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-id-card"></i> Ubah Nama / Kelas Saya
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ---------------- SECTION 2: MATERI BELAJAR ---------------- -->
+    <section id="sec-materi" class="hidden space-y-6">
+      
+      <!-- Section Header -->
+      <div class="bg-white p-6 rounded-3xl border-2 border-brand-300 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Fase A - Kelas 1</span>
+          <h2 class="text-2xl md:text-3xl font-bold font-heading text-brand-900 mt-1">📖 Materi: Aturan di Sekolahku</h2>
+          <p class="text-xs md:text-sm text-slate-600">Klik tombol <span class="text-brand-700 font-bold"><i class="fa-solid fa-volume-high"></i> Dengarkan</span> untuk mendengarkan suara bacaan!</p>
+        </div>
+        
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterMateri('semua')" id="btn-mat-semua" class="mat-tab-btn active-mat-tab px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-400 bg-brand-600 text-white">Semua</button>
+          <button onclick="filterMateri('sebelum')" id="btn-mat-sebelum" class="mat-tab-btn px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-300 bg-white text-slate-700 hover:bg-brand-50">Sebelum Belajar</button>
+          <button onclick="filterMateri('saat')" id="btn-mat-saat" class="mat-tab-btn px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-300 bg-white text-slate-700 hover:bg-brand-50">Saat Pelajaran</button>
+          <button onclick="filterMateri('istirahat')" id="btn-mat-istirahat" class="mat-tab-btn px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-300 bg-white text-slate-700 hover:bg-brand-50">Saat Istirahat</button>
+          <button onclick="filterMateri('kebersihan')" id="btn-mat-kebersihan" class="mat-tab-btn px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-300 bg-white text-slate-700 hover:bg-brand-50">Kebersihan Sekolah</button>
+        </div>
+      </div>
+
+      <!-- Materials Cards Grid -->
+      <div id="materi-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- JS will populate cards dynamically -->
+      </div>
+
+    </section>
+
+    <!-- ---------------- SECTION 3: GAME PILAH SIKAP ---------------- -->
+    <section id="sec-game" class="hidden space-y-6">
+      
+      <!-- Game Banner Header -->
+      <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Permainan Edukatif</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold font-heading mt-1">🎮 Permainan "Pilah Sikap"</h2>
+          <p class="text-xs md:text-sm text-amber-100">Bantulah mengelompokkan perilaku mana yang <strong>Mematuhi Aturan</strong> dan mana yang <strong>Melanggar Aturan</strong>!</p>
+        </div>
+        
+        <!-- Live Scoreboard -->
+        <div class="bg-white text-slate-800 px-5 py-3 rounded-2xl shadow flex items-center gap-4 border-2 border-amber-300">
+          <div class="text-center">
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Skor Game</p>
+            <p id="game-score" class="text-2xl font-extrabold font-heading text-amber-600">0</p>
+          </div>
+          <div class="h-8 w-px bg-slate-200"></div>
+          <div class="text-center">
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Sisa Kartu</p>
+            <p id="game-cards-left" class="text-2xl font-extrabold font-heading text-brand-600">8</p>
+          </div>
+          <button onclick="resetGame()" class="w-9 h-9 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-700 flex items-center justify-center transition" title="Ulangi Game">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Interactive Board -->
+      <div id="game-board-area" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Drop Zone: SIKAP MEMATUHI ATURAN -->
+        <div id="zone-tertib" class="lg:col-span-4 bg-emerald-50 border-4 border-dashed border-emerald-400 rounded-3xl p-5 flex flex-col items-center justify-start min-h-[360px] transition-all">
+          <div class="bg-emerald-500 text-white font-heading font-extrabold text-base md:text-lg px-4 py-2 rounded-2xl shadow mb-4 flex items-center gap-2 w-full justify-center">
+            <i class="fa-solid fa-circle-check text-xl"></i> Mematuhi Aturan (Tertib)
+          </div>
+          <p class="text-xs text-emerald-700 font-semibold mb-3 text-center">Tekan tombol ini jika sikapnya BAIK & TERTIB 👍</p>
+          
+          <button onclick="classifyCurrentCard('tertib')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-bold py-3 px-4 rounded-2xl shadow-md hover:scale-102 active:scale-95 transition flex items-center justify-center gap-2 mb-4 text-sm">
+            <i class="fa-solid fa-thumbs-up"></i> Pilih: SIKAP TERTIB
+          </button>
+
+          <!-- Dropped items list -->
+          <div id="list-tertib" class="w-full space-y-2 flex-grow overflow-y-auto max-h-[300px]">
+            <!-- Items classified as tertib will appear here -->
+          </div>
+        </div>
+
+        <!-- Center: CURRENT CARD TO SORT -->
+        <div class="lg:col-span-4 flex flex-col items-center justify-center">
+          <div id="active-card-container" class="w-full max-w-sm">
+            <!-- Active Card dynamically rendered -->
+          </div>
+
+          <!-- Finish Banner (hidden by default) -->
+          <div id="game-complete-box" class="hidden bg-white p-6 rounded-3xl border-4 border-amber-400 shadow-xl text-center space-y-4 w-full">
+            <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center text-4xl mx-auto animate-bounce">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold font-heading text-slate-800">Hebat Sekali, <span id="game-student-name">Siswa</span>! 🎉</h3>
+            <p class="text-sm text-slate-600">Kamu telah berhasil memilah semua sikap aturan di sekolah dengan sangat bijak!</p>
+            <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+              <p class="text-xs text-slate-500 font-bold uppercase">Skor Akhir Game</p>
+              <p id="game-final-score" class="text-4xl font-extrabold font-heading text-amber-600">100</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="resetGame()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-heading font-bold py-3 rounded-2xl shadow transition">
+                <i class="fa-solid fa-rotate-right"></i> Main Lagi
+              </button>
+              <button onclick="switchTab('kuis')" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-heading font-bold py-3 rounded-2xl shadow transition">
+                <i class="fa-solid fa-star"></i> Lanjut Kuis
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Drop Zone: SIKAP MELANGGAR ATURAN -->
+        <div id="zone-langgar" class="lg:col-span-4 bg-rose-50 border-4 border-dashed border-rose-400 rounded-3xl p-5 flex flex-col items-center justify-start min-h-[360px] transition-all">
+          <div class="bg-rose-500 text-white font-heading font-extrabold text-base md:text-lg px-4 py-2 rounded-2xl shadow mb-4 flex items-center gap-2 w-full justify-center">
+            <i class="fa-solid fa-circle-xmark text-xl"></i> Melanggar Aturan (Tidak Tertib)
+          </div>
+          <p class="text-xs text-rose-700 font-semibold mb-3 text-center">Tekan tombol ini jika sikapnya TIDAK BOLEH DILAKUKAN 👎</p>
+          
+          <button onclick="classifyCurrentCard('langgar')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-heading font-bold py-3 px-4 rounded-2xl shadow-md hover:scale-102 active:scale-95 transition flex items-center justify-center gap-2 mb-4 text-sm">
+            <i class="fa-solid fa-thumbs-down"></i> Pilih: MELANGGAR ATURAN
+          </button>
+
+          <!-- Dropped items list -->
+          <div id="list-langgar" class="w-full space-y-2 flex-grow overflow-y-auto max-h-[300px]">
+            <!-- Items classified as langgar will appear here -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ---------------- SECTION 4: KUIS 10 SOAL ---------------- -->
+    <section id="sec-kuis" class="hidden space-y-6">
+      
+      <!-- Quiz Header Card -->
+      <div class="bg-gradient-to-r from-sky-600 to-indigo-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Evaluasi Pembelajaran</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold font-heading mt-1">📝 Kuis Interaktif 10 Soal</h2>
+          <p class="text-xs md:text-sm text-sky-100">Jawablah pertanyaan dengan teliti. Gunakan tombol suara jika ingin mendengarkan soal!</p>
+        </div>
+        
+        <!-- Quiz Progress Pill -->
+        <div class="bg-white text-slate-800 px-5 py-3 rounded-2xl shadow flex items-center gap-4 border-2 border-sky-300">
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Kemajuan Soal</p>
+            <p id="quiz-progress-num" class="text-xl font-extrabold font-heading text-sky-600">Soal 1 / 10</p>
+          </div>
+          <div class="h-8 w-px bg-slate-200"></div>
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Skor Sementara</p>
+            <p id="quiz-temp-score" class="text-xl font-extrabold font-heading text-emerald-600">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Quiz Card Box -->
+      <div id="quiz-active-box" class="bg-white p-6 md:p-8 rounded-3xl border-2 border-slate-200 shadow-xl space-y-6">
+        
+        <!-- Top bar with TTS button -->
+        <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-4">
+          <span id="quiz-q-category" class="bg-sky-100 text-sky-800 font-bold text-xs px-3 py-1 rounded-full">Aturan di Sekolah</span>
+          <button onclick="readCurrentQuizQuestion()" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-amber-300 flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-volume-high text-amber-600"></i> Dengarkan Soal & Opsi
+          </button>
+        </div>
+
+        <!-- Question Text & Icon -->
+        <div class="flex items-start gap-4">
+          <div id="quiz-q-icon-box" class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-sky-100 text-sky-600 flex-shrink-0 flex items-center justify-center text-3xl shadow-sm">
+            <i class="fa-solid fa-circle-question"></i>
+          </div>
+          <div>
+            <h3 id="quiz-q-text" class="text-lg md:text-2xl font-bold font-heading text-slate-800 leading-snug">
+              loading question...
+            </h3>
+            <p class="text-xs text-slate-500 mt-1 font-medium">Pilihlah salah satu jawaban (A, B, atau C) yang paling tepat!</p>
+          </div>
+        </div>
+
+        <!-- Options Buttons List -->
+        <div id="quiz-options-container" class="grid grid-cols-1 gap-3 pt-2">
+          <!-- Options rendered dynamically -->
+        </div>
+
+        <!-- Instant Explanation Box (Hidden initially) -->
+        <div id="quiz-explanation-box" class="hidden p-4 rounded-2xl border-2 space-y-2 transition-all">
+          <div class="flex items-center gap-2 font-heading font-bold text-base" id="quiz-expl-title">
+            <!-- Correct / Wrong status -->
+          </div>
+          <p id="quiz-expl-text" class="text-xs md:text-sm font-medium leading-relaxed">
+            <!-- Explanation text -->
+          </p>
+          <div class="pt-2 flex justify-end">
+            <button onclick="nextQuizQuestion()" class="bg-brand-600 hover:bg-brand-700 text-white font-heading font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+              Lanjut Soal Berikutnya <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quiz Completed View (Hidden initially) -->
+      <div id="quiz-complete-box" class="hidden bg-white p-8 rounded-3xl border-4 border-brand-400 shadow-2xl text-center space-y-6">
+        <div class="w-24 h-24 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-5xl mx-auto shadow-inner animate-bounce">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <div class="space-y-2">
+          <span class="bg-brand-100 text-brand-800 font-bold text-xs px-3 py-1 rounded-full uppercase">Kuis Selesai!</span>
+          <h3 class="text-3xl md:text-4xl font-extrabold font-heading text-brand-900">
+            Selamat, <span id="quiz-result-student-name">Nama Siswa</span>! 🌟
+          </h3>
+          <p class="text-slate-600 text-sm md:text-base">Kamu telah menyelesaikan Kuis 10 Soal Pendidikan Pancasila.</p>
+        </div>
+
+        <div class="bg-gradient-to-tr from-brand-50 to-emerald-50 p-6 rounded-3xl border-2 border-brand-200 inline-block min-w-[280px]">
+          <p class="text-xs text-slate-500 font-bold uppercase">Nilai Akhir Kamu</p>
+          <p id="quiz-final-score" class="text-6xl font-extrabold font-heading text-brand-700 my-2">100</p>
+          <div id="quiz-grade-badge" class="inline-block bg-emerald-600 text-white font-heading text-xs font-bold px-4 py-1.5 rounded-full shadow">
+            SANGAT BAIK / MUMTAZ ⭐⭐⭐⭐⭐
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+          <button onclick="showCertificateModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-heading font-bold px-6 py-3.5 rounded-2xl shadow-lg hover:scale-105 transition flex items-center gap-2 text-base">
+            <i class="fa-solid fa-award text-xl"></i> Lihat & Cetak Sertifikat Kelulusan
+          </button>
+
+          <button onclick="restartQuiz()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-heading font-bold px-6 py-3.5 rounded-2xl border border-slate-300 transition flex items-center gap-2 text-base">
+            <i class="fa-solid fa-rotate-right"></i> Ulangi Kuis
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------------- SECTION 5: MASUKAN & REKAP SISWA ---------------- -->
+    <section id="sec-masukan" class="hidden space-y-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Form Feedback Siswa (Left 5 cols) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl border-2 border-brand-300 shadow-md space-y-5">
+          <div class="border-b border-slate-100 pb-3">
+            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Refleksi Belajar</span>
+            <h2 class="text-xl md:text-2xl font-bold font-heading text-slate-800 mt-1">💬 Masukan & Kesan Siswa</h2>
+            <p class="text-xs text-slate-600">Bagaimana perasaanmu setelah belajar aturan di sekolah hari ini?</p>
+          </div>
+
+          <form id="feedback-form" onsubmit="submitFeedback(event)" class="space-y-4">
+            <!-- Reaction Emoji Selector -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-2">Pilih Reaksi Emoji Perasaanmu:</label>
+              <div class="grid grid-cols-3 gap-2">
+                
+                <label class="cursor-pointer">
+                  <input type="radio" name="reaction" value="Sangat Senang" checked class="peer sr-only">
+                  <div class="p-3 rounded-2xl border-2 border-slate-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 text-center transition hover:bg-slate-50">
+                    <span class="text-3xl block">🤩</span>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1 block">Sangat Senang</span>
+                  </div>
+                </label>
+
+                <label class="cursor-pointer">
+                  <input type="radio" name="reaction" value="Senang" class="peer sr-only">
+                  <div class="p-3 rounded-2xl border-2 border-slate-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 text-center transition hover:bg-slate-50">
+                    <span class="text-3xl block">😊</span>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1 block">Senang</span>
+                  </div>
+                </label>
+
+                <label class="cursor-pointer">
+                  <input type="radio" name="reaction" value="Cukup" class="peer sr-only">
+                  <div class="p-3 rounded-2xl border-2 border-slate-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 text-center transition hover:bg-slate-50">
+                    <span class="text-3xl block">🙂</span>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1 block">Cukup</span>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- Comment TextArea -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Tulis Pesan / Masukan Singkat (didampingi guru/orang tua):</label>
+              <textarea id="feedback-comment" rows="3" required placeholder="Contoh: Belajar dengan suara dan game sangat seru! Saya berjanji akan selalu tertib di sekolah..." class="w-full p-3 rounded-2xl border-2 border-slate-200 focus:border-brand-500 focus:outline-none text-xs text-slate-800 transition"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-heading font-bold py-3 rounded-2xl shadow transition flex items-center justify-center gap-2 text-sm">
+              <i class="fa-solid fa-paper-plane"></i> Kirim Masukan Pengguna
+            </button>
+          </form>
+        </div>
+
+        <!-- Rekapitulasi Siswa yang Menggunakan (Right 7 cols) -->
+        <div class="lg:col-span-7 bg-white p-6 rounded-3xl border-2 border-brand-200 shadow-md space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Riwayat Aktivitas</span>
+                <h3 class="text-xl font-bold font-heading text-slate-800 mt-1">📊 Rekapitulasi Siswa Pengguna</h3>
+              </div>
+              <button onclick="clearStudentHistory()" class="text-xs text-rose-500 hover:underline font-bold">
+                <i class="fa-solid fa-trash-can"></i> Bersihkan Log
+              </button>
+            </div>
+
+            <p class="text-xs text-slate-500 mt-2 mb-4">Daftar siswa MI Almaarif 02 Singosari yang telah menggunakan aplikasi media pembelajaran ini pada peranti ini:</p>
+
+            <!-- Table or list of history -->
+            <div class="overflow-y-auto max-h-[350px] pr-1">
+              <div id="student-history-list" class="space-y-3">
+                <!-- Dynamic student log cards -->
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs text-slate-500 flex items-center justify-between">
+            <span>Total Pengguna Terdata: <strong id="total-students-count" class="text-brand-700 font-bold">0</strong> Siswa</span>
+            <span>Tersimpan di Penyimpanan Lokal (localStorage)</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ---------------- SECTION 6: INFO MEDIA & PROMPT ---------------- -->
+    <section id="sec-info" class="hidden space-y-6">
+      
+      <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-indigo-200 shadow-lg space-y-6">
+        
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 border-b border-slate-100 pb-4">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-3xl shadow-sm">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <div>
+            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Dokumentasi & Informasi</span>
+            <h2 class="text-2xl font-bold font-heading text-indigo-950 mt-1">Info Media Pembelajaran & Catatan Prompt</h2>
+          </div>
+        </div>
+
+        <!-- Creator Profile Card -->
+        <div class="bg-gradient-to-r from-emerald-50 to-brand-50 p-5 rounded-2xl border border-brand-200 flex flex-col sm:flex-row items-center gap-4">
+          <div class="w-20 h-20 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-3xl shadow-md flex-shrink-0">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <div class="space-y-1 text-center sm:text-left">
+            <span class="bg-brand-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">Pengembang Utama</span>
+            <h3 class="text-xl font-bold font-heading text-brand-900">Muti'atul Hasanah, S.Pd.I</h3>
+            <p class="text-xs font-bold text-brand-700">MI ALMAARIF 02 SINGOSARI (Cakep MIA02)</p>
+            <p class="text-xs text-slate-600">Alamat Instansi: Jl. Raya Singosari, Kabupaten Malang, Jawa Timur</p>
+          </div>
+        </div>
+
+        <!-- Learning Objectives (Tujuan Pembelajaran) -->
+        <div class="space-y-2">
+          <h4 class="font-heading font-bold text-lg text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-bullseye text-brand-600"></i> Capaian & Tujuan Pembelajaran (Fase A - Kelas 1)
+          </h4>
+          <ul class="list-disc list-inside text-xs md:text-sm text-slate-700 space-y-1.5 pl-2 leading-relaxed">
+            <li><strong>Elemen Pancasila & Undang-Undang Dasar 1945:</strong> Peserta didik mampu mengenal dan menceritakan aturan-aturan sederhana di lingkungan sekolah.</li>
+            <li><strong>Tujuan Khusus 1:</strong> Siswa dapat menyebutkan contoh aturan sebelum pelajaran, saat pelajaran, saat istirahat, dan menjaga kebersihan sekolah.</li>
+            <li><strong>Tujuan Khusus 2:</strong> Siswa dapat membedakan contoh sikap mematuhi aturan dan sikap melanggar aturan melalui permainan edukatif.</li>
+            <li><strong>Tujuan Khusus 3:</strong> Siswa menunjukkan sikap disiplin, tanggung jawab, dan saling menghargai sesama teman di sekolah.</li>
+          </ul>
+        </div>
+
+        <!-- Prompt Documentation Box -->
+        <div class="space-y-2">
+          <h4 class="font-heading font-bold text-lg text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-terminal text-indigo-600"></i> Catatan Prompt Pembuatan Aplikasi Media (AI Prompt Engineering Note)
+          </h4>
+          <div class="bg-slate-900 text-emerald-400 p-4 rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-inner">
+            <p class="text-slate-400 border-b border-slate-800 pb-2 mb-2">// Prompt Generasi Media Pembelajaran Interaktif AI:</p>
+            <code>
+              "Buat aplikasi web media pembelajaran interaktif tunggal (single-file HTML) Pendidikan Pancasila Kelas 1 SD/MI materi 'Aturan di Sekolah' dengan nuansa warna hijau segar & cerah yang selaras dengan identitas MI Almaarif 02 Singosari (Cakep MIA02). Cantumkan nama pembuat 'Muti'atul Hasanah' pada bagian header/footer serta profil pembuat. Fitur lengkap meliputi: (1) Input Nama & Kelas Siswa di halaman awal yang tersimpan selama sesi, (2) Materi Interaktif 'Aturan di Sekolah' dengan ilustrasi ikon/vektor ramah anak dan tombol Suara Baca (Text-to-Speech Bahasa Indonesia), (3) Permainan Edukatif 'Pilah Sikap' (Sikap Mematuhi vs Melanggar Aturan) dengan synth sound effects Web Audio API, (4) Kuis Interaktif 10 Soal pilihan ganda bergambar/ikon dengan pembahasan dan sertifikat hasil belajar digital resmi MI Almaarif 02 Singosari, (5) Halaman 'Masukan Siswa & Catatan Pengguna' yang tersimpan di localStorage beserta skor mereka, dan (6) Halaman/Modal 'Catatan Prompt & Info Media'."
+            </code>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER UTAMA ==================== -->
+  <footer class="bg-brand-900 text-white border-t-4 border-brand-400 mt-10 py-6">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div>
+        <p class="font-heading font-bold text-base text-yellow-300">MI ALMAARIF 02 SINGOSARI (Cakep MIA02)</p>
+        <p class="text-xs text-brand-200 mt-0.5">Media Pembelajaran Interaktif Pendidikan Pancasila Kelas 1 SD/MI • Materi Aturan di Sekolah</p>
+      </div>
+      <div class="text-xs text-brand-300 space-y-1">
+        <p>Disusun oleh: <strong class="text-white">Muti'atul Hasanah, S.Pd.I</strong></p>
+        <p>© 2026 Media Pembelajaran Digital. Bebas Digunakan Untuk Edukasi Madrasah/Sekolah.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL 1: PROFIL / GANTI SISWA ==================== -->
+  <div id="modal-student" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-5 border-4 border-brand-400 animate-bounce-subtle">
+      
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <h3 class="text-2xl font-extrabold font-heading text-brand-900">Halo Sahabat Cilik! 👋</h3>
+        <p class="text-xs text-slate-600">Silakan masukkan nama dan kelasmu sebelum mulai belajar ya!</p>
+      </div>
+
+      <form onsubmit="saveStudentInfo(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Siswa:</label>
+          <input type="text" id="input-student-name" required placeholder="Contoh: Ahmad Zakaria" class="w-full p-3 rounded-2xl border-2 border-brand-200 focus:border-brand-500 focus:outline-none font-bold text-sm text-slate-800">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Kelas / Rombel:</label>
+          <select id="input-student-class" class="w-full p-3 rounded-2xl border-2 border-brand-200 focus:border-brand-500 focus:outline-none font-bold text-sm text-slate-800">
+            <option value="Kelas 1-A">Kelas 1 - A (MI Almaarif 02)</option>
+            <option value="Kelas 1-B">Kelas 1 - B (MI Almaarif 02)</option>
+            <option value="Kelas 1-C">Kelas 1 - C (MI Almaarif 02)</option>
+            <option value="Siswa Tamu">Siswa Tamu / Umum</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-heading font-extrabold py-3.5 rounded-2xl shadow-lg hover:scale-102 transition text-base flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Simpan & Mulai Belajar!
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: SERTIFIKAT DIGITAL KELULUSAN ==================== -->
+  <div id="modal-certificate" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-3xl w-full shadow-2xl space-y-6 border-8 border-brand-500 my-8 relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeCertificateModal()" class="no-print absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-lg">
+        ✕
+      </button>
+
+      <!-- Printable Certificate Box -->
+      <div id="certificate-content" class="border-4 border-double border-amber-400 p-6 md:p-10 rounded-2xl bg-gradient-to-b from-emerald-50/40 to-white text-center space-y-5 relative overflow-hidden">
+        
+        <!-- School Header -->
+        <div class="flex items-center justify-between border-b-2 border-brand-300 pb-4">
+          <div class="text-left">
+            <span class="bg-brand-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">Sertifikat Kelulusan Modul</span>
+            <h2 class="text-xl md:text-2xl font-extrabold font-heading text-brand-900">MI ALMAARIF 02 SINGOSARI</h2>
+            <p class="text-xs text-brand-700 font-semibold">Cakep MIA02 • Kabupaten Malang</p>
+          </div>
+          <div class="w-14 h-14 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-3xl font-extrabold shadow">
+            🥇
+          </div>
+        </div>
+
+        <!-- Certificate Body -->
+        <div class="space-y-3 py-2">
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Diberikan Kepada Siswa Berprestasi:</p>
+          <h1 id="cert-student-name" class="text-3xl md:text-4xl font-extrabold font-heading text-brand-800 underline decoration-amber-400">
+            Ahmad Zakaria
+          </h1>
+          <p id="cert-student-class" class="text-sm font-bold text-slate-600">Kelas 1-A • MI Almaarif 02 Singosari</p>
+
+          <p class="text-xs md:text-sm text-slate-700 max-w-lg mx-auto leading-relaxed pt-2">
+            Telah menyelesaikan dan menguasai Modul Media Pembelajaran Interaktif <strong>Pendidikan Pancasila</strong> Materi <strong>"Aturan di Sekolah"</strong> dengan hasil sebagai berikut:
+          </p>
+
+          <!-- Score Box -->
+          <div class="inline-flex items-center gap-6 bg-white px-6 py-3 rounded-2xl border-2 border-amber-300 shadow-sm my-2">
+            <div class="text-center">
+              <p class="text-[10px] text-slate-400 font-bold uppercase">Nilai Kuis</p>
+              <p id="cert-score-num" class="text-3xl font-extrabold font-heading text-emerald-600">100</p>
+            </div>
+            <div class="h-8 w-px bg-slate-200"></div>
+            <div class="text-center">
+              <p class="text-[10px] text-slate-400 font-bold uppercase">Predikat</p>
+              <p id="cert-grade-text" class="text-sm font-extrabold font-heading text-amber-600">MUMTAZ (SANGAT BAIK)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signatures & Date -->
+        <div class="grid grid-cols-2 gap-4 pt-6 text-xs text-slate-700 border-t border-slate-200">
+          <div class="text-center space-y-8">
+            <p>Singosari, <span id="cert-date-text">22 November 2026</span></p>
+            <p class="font-bold underline text-brand-900">Muti'atul Hasanah, S.Pd.I</p>
+            <p class="text-[10px] text-slate-500 -mt-7">Guru Pengembang Media</p>
+          </div>
+          <div class="text-center space-y-8">
+            <p>Mengetahui,</p>
+            <p class="font-bold underline text-brand-900">Kepala MI Almaarif 02</p>
+            <p class="text-[10px] text-slate-500 -mt-7">Singosari Malang</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="no-print flex items-center justify-center gap-3">
+        <button onclick="window.print()" class="bg-brand-600 hover:bg-brand-700 text-white font-heading font-bold px-6 py-3 rounded-2xl shadow transition flex items-center gap-2 text-sm">
+          <i class="fa-solid fa-print"></i> Cetak / Simpan Sertifikat (PDF)
+        </button>
+        <button onclick="closeCertificateModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-heading font-bold px-5 py-3 rounded-2xl transition text-sm">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    /* ==========================================================================
+       1. GLOBAL STATE & INITIALIZATION
+       ========================================================================== */
+    let currentStudent = {
+      name: '',
+      class: ''
+    };
+
+    let soundEnabled = true;
+    let synth = window.speechSynthesis;
+
+    // Database Materi Pembelajaran Aturan di Sekolah
+    const dataMateri = [
+      {
+        id: 1,
+        kategori: 'sebelum',
+        judul: '1. Berpamitan Sebelum Berangkat',
+        ikon: 'fa-child-reaching',
+        warna: 'emerald',
+        ringkasan: 'Mengucapkan salam dan mencium tangan orang tua sebelum ke sekolah.',
+        detail: 'Sebelum berangkat ke sekolah, kita harus berpamitan kepada orang tua. Ucapkan salam "Assalamu’alaikum" dan cium tangan ayah ibu agar ilmu kita berkah dan selamat di jalan.'
+      },
+      {
+        id: 2,
+        kategori: 'sebelum',
+        judul: '2. Datang Tepat Waktu',
+        ikon: 'fa-clock',
+        warna: 'amber',
+        ringkasan: 'Tiba di sekolah sebelum bel masuk berbunyi.',
+        detail: 'Anak hebat selalu datang tepat waktu ke MI Almaarif 02 Singosari. Jangan terlambat agar tidak ketinggalan doa dan pelajaran bersama guru dan teman-teman.'
+      },
+      {
+        id: 3,
+        kategori: 'saat',
+        judul: '3. Berdoa Sebelum Belajar',
+        ikon: 'fa-hands-praying',
+        warna: 'sky',
+        ringkasan: 'Duduk rapi dan berdoa bersama sebelum pelajaran dimulai.',
+        detail: 'Saat bel masuk berbunyi, kita masuk kelas dengan tertib, duduk rapi, dan mengangkat kedua tangan untuk berdoa bersama memohon ilmu yang bermanfaat.'
+      },
+      {
+        id: 4,
+        kategori: 'saat',
+        judul: '4. Mendengarkan Penjelasan Guru',
+        ikon: 'fa-chalkboard-user',
+        warna: 'indigo',
+        ringkasan: 'Tidak mengobrol sendiri saat guru sedang mengajar.',
+        detail: 'Ketika bapak atau ibu guru menjelaskan materi di depan kelas, kita wajib mendengarkan dengan tenang. Jika ingin bertanya, angkat tangan kananmu terlebih dahulu.'
+      },
+      {
+        id: 5,
+        kategori: 'istirahat',
+        judul: '5. Tertib Saat Jam Istirahat',
+        ikon: 'fa-apple-whole',
+        warna: 'rose',
+        ringkasan: 'Makan bekal dengan duduk sopan dan tidak berlarian berlebihan.',
+        detail: 'Saat jam istirahat tiba, makanlah bekalmu sambil duduk sopan dan jangan lupa mencuci tangan serta membaca doa sebelum dan sesudah makan.'
+      },
+      {
+        id: 6,
+        kategori: 'kebersihan',
+        judul: '6. Menjaga Kebersihan Sekolah',
+        ikon: 'fa-trash-can',
+        warna: 'teal',
+        ringkasan: 'Membuang sampah pada tempat sampah di lingkungan madrasah.',
+        detail: 'Kebersihan adalah sebagian dari iman. Selalu buang bungkus makanan atau sampah kertas ke tempat sampah agar madrasah kita tetap bersih dan indah.'
+      }
+    ];
+
+    // Database Game Pilah Sikap
+    const dataGameCards = [
+      { id: 1, text: 'Mencium tangan orang tua sebelum berangkat sekolah', type: 'tertib', icon: '🙏' },
+      { id: 2, text: 'Membuang bungkus plastik makanan di lantai kelas', type: 'langgar', icon: '🚯' },
+      { id: 3, text: 'Berdoa dengan khusyuk sebelum mulai belajar', type: 'tertib', icon: '🤲' },
+      { id: 4, text: 'Mengobrol dan bercanda saat guru menjelaskan materi', type: 'langgar', icon: '🗣️' },
+      { id: 5, text: 'Memakai seragam rapi dan atribut sekolah lengkap', type: 'tertib', icon: '👔' },
+      { id: 6, text: 'Mencoret-coret meja dan dinding kelas', type: 'langgar', icon: '✏️' },
+      { id: 7, text: 'Mengantre dengan tertib saat membeli makanan di kantin', type: 'tertib', icon: '🚶‍♂️' },
+      { id: 8, text: 'Datang terlambat saat bel sekolah sudah berbunyi', type: 'langgar', icon: '⏰' }
+    ];
+    let gameCurrentIndex = 0;
+    let gameScore = 0;
+
+    // Database 10 Soal Kuis Interaktif
+    const dataQuiz = [
+      {
+        q: "Apa yang harus kita lakukan sebelum berangkat ke sekolah?",
+        icon: "fa-house-user",
+        options: [
+          "A. Berpamitan dan mencium tangan orang tua",
+          "B. Langsung lari tanpa memberi tahu orang tua",
+          "C. Marah-marah karena bangun pagi"
+        ],
+        answer: 0,
+        expl: "Benar! Sebelum berangkat sekolah kita wajib berpamitan dan memohon doa orang tua."
+      },
+      {
+        q: "Kapan kita harus tiba di sekolah?",
+        icon: "fa-clock",
+        options: [
+          "A. Jam 12 siang saat pelajaran selesai",
+          "B. Tepat waktu sebelum bel masuk berbunyi",
+          "C. Kapan saja terserah keinginan kita"
+        ],
+        answer: 1,
+        expl: "Pintar! Anak tertib selalu datang tepat waktu sebelum bel masuk."
+      },
+      {
+        q: "Sikap yang baik saat bel masuk kelas berbunyi adalah...",
+        icon: "fa-bell",
+        options: [
+          "A. Tetap bermain di lapangan sekolah",
+          "B. Masuk kelas dengan tertib dan duduk rapi",
+          "C. Berteriak-teriak di koridor sekolah"
+        ],
+        answer: 1,
+        expl: "Hebat! Saat bel berbunyi kita langsung masuk kelas dengan tertib."
+      },
+      {
+        q: "Sebelum memulai pelajaran, kita wajib...",
+        icon: "fa-hands-praying",
+        options: [
+          "A. Berdoa bersama",
+          "B. Tidur di atas meja",
+          "C. Bermain HP"
+        ],
+        answer: 0,
+        expl: "Bagus sekali! Berdoa dilakukan agar Allah memberi kemudahan dan kebaikan ilmu."
+      },
+      {
+        q: "Saat bapak atau ibu guru sedang mengajar di depan kelas, kita sebaiknya...",
+        icon: "fa-chalkboard-user",
+        options: [
+          "A. Mengobrol sendiri dengan teman",
+          "B. Mendengarkan dengan sungguh-sungguh",
+          "C. Mengganggu teman di sebelah"
+        ],
+        answer: 1,
+        expl: "Tepat! Memperhatikan penjelasan guru adalah wujud menghormati guru."
+      },
+      {
+        q: "Jika ingin mengajukan pertanyaan kepada guru di kelas, sebaiknya kita...",
+        icon: "fa-hand",
+        options: [
+          "A. Mengangkat tangan kanan dengan sopan",
+          "B. Berteriak kencang-kencang",
+          "C. Memukul meja kelas"
+        ],
+        answer: 0,
+        expl: "Benar! Angkat tangan kanan dengan sopan sebelum berbicara di kelas."
+      },
+      {
+        q: "Di mana kita harus membuang bungkus makanan atau sampah kertas?",
+        icon: "fa-trash-can",
+        options: [
+          "A. Di dalam laci meja kelas",
+          "B. Di halaman sekolah",
+          "C. Di tempat sampah"
+        ],
+        answer: 2,
+        expl: "Tepat sekali! Membuang sampah di tempat sampah menjaga sekolah bersih dan sehat."
+      },
+      {
+        q: "Bagaimana cara makan bekal saat jam istirahat?",
+        icon: "fa-utensils",
+        options: [
+          "A. Makan sambil berlarian di lapangan",
+          "B. Duduk sopan dan membaca doa sebelum makan",
+          "C. Berebut makanan milik teman"
+        ],
+        answer: 1,
+        expl: "Sangat baik! Makan sambil duduk dan berdoa adalah adab yang diajarkan Islam."
+      },
+      {
+        q: "Menjaga kerapian seragam dan atribut sekolah merupakan contoh sikap...",
+        icon: "fa-shirt",
+        options: [
+          "A. Mematuhi aturan sekolah",
+          "B. Melanggar aturan sekolah",
+          "C. Malas dan curang"
+        ],
+        answer: 0,
+        expl: "Hebat! Memakai seragam rapi menunjukkan anak yang disiplin."
+      },
+      {
+        q: "Apa manfaat jika semua siswa mematuhi aturan di sekolah?",
+        icon: "fa-smile-beam",
+        options: [
+          "A. Suasana belajar menjadi tenang, aman, dan menyenangkan",
+          "B. Kelas menjadi kotor dan berisik",
+          "C. Guru menjadi sedih"
+        ],
+        answer: 0,
+        expl: "Luar biasa! Jika semua siswa tertib, sekolah kita di MI Almaarif 02 menjadi aman dan menyenangkan!"
+      }
+    ];
+
+    let quizCurrentIdx = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    /* ==========================================================================
+       2. WEB AUDIO API SYNTHESIZER (SOUND EFFECTS WITHOUT EXTERNAL FILES)
+       ========================================================================== */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSynthSound(type) {
+      if (!soundEnabled) return;
+      
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      const now = audioCtx.currentTime;
+
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(400, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'correct') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+        osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } else if (type === 'wrong') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now); // A3
+        osc.frequency.setValueAtTime(164.81, now + 0.15); // E3
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      } else if (type === 'fanfare') {
+        // Victory chime series
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const o = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          o.connect(g);
+          g.connect(audioCtx.destination);
+          o.type = 'triangle';
+          o.frequency.setValueAtTime(freq, now + idx * 0.12);
+          g.gain.setValueAtTime(0.2, now + idx * 0.12);
+          g.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.12 + 0.25);
+          o.start(now + idx * 0.12);
+          o.stop(now + idx * 0.12 + 0.25);
+        });
+      }
+    }
+
+    function toggleAudio() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('icon-sound');
+      const btn = document.getElementById('btn-sound-toggle');
+      if (soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-lg';
+        btn.className = 'w-10 h-10 rounded-2xl bg-amber-100 hover:bg-amber-200 border-2 border-amber-300 text-amber-700 flex items-center justify-center shadow hover:scale-105 transition';
+        speakText("Suara aktif");
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-lg';
+        btn.className = 'w-10 h-10 rounded-2xl bg-slate-200 text-slate-500 flex items-center justify-center shadow transition';
+        if (synth) synth.cancel();
+      }
+    }
+
+    /* ==========================================================================
+       3. TEXT-TO-SPEECH (TTS) IN INDONESIAN
+       ========================================================================== */
+    function speakText(text) {
+      if (!soundEnabled) return;
+      if (!synth) {
+        alert("Fitur Suara Baca tidak didukung oleh peramban ini.");
+        return;
+      }
+
+      // Stop any ongoing speech
+      synth.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'id-ID';
+      utterance.rate = 0.9; // Slightly slower for 1st graders
+      utterance.pitch = 1.1; // Friendly pitch
+
+      // Try selecting an Indonesian voice if available
+      const voices = synth.getVoices();
+      const idVoice = voices.find(v => v.lang.includes('id') || v.lang.includes('ID'));
+      if (idVoice) {
+        utterance.voice = idVoice;
+      }
+
+      synth.speak(utterance);
+    }
+
+    /* ==========================================================================
+       4. STUDENT PROFILE & MODAL MANAGERS
+       ========================================================================== */
+    window.onload = function() {
+      // Check if student profile exists in localStorage
+      const savedStudent = localStorage.getItem('cakep_mia02_active_student');
+      if (savedStudent) {
+        currentStudent = JSON.parse(savedStudent);
+        updateStudentUI();
+        closeStudentModal();
+      } else {
+        openStudentModal();
+      }
+
+      // Populate Materials & Render initial views
+      renderMateriCards('semua');
+      initGame();
+      renderStudentHistory();
+    };
+
+    function openStudentModal() {
+      document.getElementById('modal-student').classList.remove('hidden');
+      if (currentStudent.name) {
+        document.getElementById('input-student-name').value = currentStudent.name;
+        document.getElementById('input-student-class').value = currentStudent.class;
+      }
+    }
+
+    function closeStudentModal() {
+      document.getElementById('modal-student').classList.add('hidden');
+    }
+
+    function saveStudentInfo(e) {
+      e.preventDefault();
+      const name = document.getElementById('input-student-name').value.trim();
+      const cls = document.getElementById('input-student-class').value;
+
+      if (!name) return;
+
+      currentStudent = { name: name, class: cls };
+      localStorage.setItem('cakep_mia02_active_student', JSON.stringify(currentStudent));
+      
+      updateStudentUI();
+      closeStudentModal();
+      playSynthSound('fanfare');
+
+      speakText(`Selamat datang ${name} di media pembelajaran Pendidikan Pancasila MI Almaarif 02 Singosari!`);
+    }
+
+    function updateStudentUI() {
+      document.getElementById('chip-student-name').innerText = currentStudent.name || 'Belum Mengisi';
+      document.getElementById('hero-student-name').innerText = currentStudent.name ? `${currentStudent.name}` : 'Teman Kecil!';
+      document.getElementById('game-student-name').innerText = currentStudent.name || 'Siswa';
+      document.getElementById('quiz-result-student-name').innerText = currentStudent.name || 'Siswa';
+    }
+
+    /* Navigation Tab Switcher */
+    function switchTab(tabId) {
+      playSynthSound('click');
+      
+      const sections = ['beranda', 'materi', 'game', 'kuis', 'masukan', 'info'];
+      sections.forEach(sec => {
+        const el = document.getElementById(`sec-${sec}`);
+        const btn = document.getElementById(`tab-${sec}`);
+        if (sec === tabId) {
+          el.classList.remove('hidden');
+          if (btn) {
+            btn.className = 'tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all bg-white text-brand-800 shadow';
+          }
+        } else {
+          el.classList.add('hidden');
+          if (btn) {
+            btn.className = 'tab-btn px-3 py-2 md:px-5 md:py-2.5 rounded-2xl font-heading font-bold text-xs md:text-sm flex items-center gap-2 transition-all hover:bg-brand-500/80';
+          }
+        }
+      });
+
+      if (tabId === 'kuis' && quizCurrentIdx === 0 && !quizAnswered) {
+        loadQuizQuestion(0);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       5. MATERI BELAJAR LOGIC
+       ========================================================================== */
+    function filterMateri(cat) {
+      playSynthSound('click');
+      
+      // Update tab active state
+      const tabs = ['semua', 'sebelum', 'saat', 'istirahat', 'kebersihan'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`btn-mat-${t}`);
+        if (t === cat) {
+          btn.className = 'mat-tab-btn active-mat-tab px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-400 bg-brand-600 text-white';
+        } else {
+          btn.className = 'mat-tab-btn px-3 py-1.5 rounded-xl text-xs font-heading font-bold border border-brand-300 bg-white text-slate-700 hover:bg-brand-50';
+        }
+      });
+
+      renderMateriCards(cat);
+    }
+
+    function renderMateriCards(filter) {
+      const container = document.getElementById('materi-container');
+      container.innerHTML = '';
+
+      const filtered = filter === 'semua' ? dataMateri : dataMateri.filter(m => m.kategori === filter);
+
+      filtered.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-6 rounded-3xl border-2 border-brand-200 shadow-md hover:shadow-lg transition flex flex-col justify-between space-y-4';
+        
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl shadow-sm">
+                <i class="fa-solid ${m.ikon}"></i>
+              </div>
+              <button onclick="speakText('${m.judul}. ${m.detail}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-amber-300 flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-volume-high text-amber-600"></i> Dengarkan
+              </button>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-800">${m.judul}</h3>
+            <p class="text-sm text-slate-700 leading-relaxed font-medium bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">
+              ${m.detail}
+            </p>
+          </div>
+          <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100">
+            <span><i class="fa-solid fa-tag text-brand-500"></i> Modul Pancasila Kelas 1</span>
+            <span class="font-bold text-brand-700">Cakep MIA02</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* ==========================================================================
+       6. GAME PILAH SIKAP LOGIC
+       ========================================================================== */
+    function initGame() {
+      gameCurrentIndex = 0;
+      gameScore = 0;
+      document.getElementById('game-score').innerText = '0';
+      document.getElementById('game-cards-left').innerText = dataGameCards.length;
+      document.getElementById('list-tertib').innerHTML = '';
+      document.getElementById('list-langgar').innerHTML = '';
+      document.getElementById('game-complete-box').classList.add('hidden');
+      
+      renderActiveGameCard();
+    }
+
+    function resetGame() {
+      playSynthSound('click');
+      initGame();
+    }
+
+    function renderActiveGameCard() {
+      const container = document.getElementById('active-card-container');
+      container.innerHTML = '';
+
+      if (gameCurrentIndex >= dataGameCards.length) {
+        // Game complete
+        document.getElementById('game-complete-box').classList.remove('hidden');
+        document.getElementById('game-final-score').innerText = gameScore;
+        playSynthSound('fanfare');
+        speakText(`Luar biasa ${currentStudent.name || 'Siswa'}! Kamu berhasil menyelesaikan permainan Pilah Sikap dengan nilai ${gameScore}!`);
+        return;
+      }
+
+      const cardData = dataGameCards[gameCurrentIndex];
+
+      const cardEl = document.createElement('div');
+      cardEl.className = 'bg-white p-6 rounded-3xl border-4 border-amber-400 shadow-xl text-center space-y-4 animate-bounce-subtle';
+      cardEl.innerHTML = `
+        <div class="text-6xl">${cardData.icon}</div>
+        <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Kartu ke-${gameCurrentIndex + 1} dari ${dataGameCards.length}</p>
+        <h4 class="font-heading font-extrabold text-lg text-slate-800 leading-snug">${cardData.text}</h4>
+        
+        <button onclick="speakText('${cardData.text}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-amber-300 inline-flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-volume-high text-amber-600"></i> Dengarkan Pernyataan
+        </button>
+      `;
+
+      container.appendChild(cardEl);
+      document.getElementById('game-cards-left').innerText = dataGameCards.length - gameCurrentIndex;
+    }
+
+    function classifyCurrentCard(choice) {
+      if (gameCurrentIndex >= dataGameCards.length) return;
+
+      const cardData = dataGameCards[gameCurrentIndex];
+      const isCorrect = cardData.type === choice;
+
+      if (isCorrect) {
+        playSynthSound('correct');
+        gameScore += 12.5; // 8 questions = 100 points
+        if (gameScore > 100) gameScore = 100;
+        document.getElementById('game-score').innerText = Math.round(gameScore);
+
+        // Add to side column
+        const targetList = choice === 'tertib' ? document.getElementById('list-tertib') : document.getElementById('list-langgar');
+        const badge = document.createElement('div');
+        badge.className = choice === 'tertib' 
+          ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm'
+          : 'bg-rose-100 text-rose-800 border border-rose-300 p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm';
+        badge.innerHTML = `<span>${cardData.icon}</span> <span class="truncate">${cardData.text}</span>`;
+        targetList.prepend(badge);
+
+      } else {
+        playSynthSound('wrong');
+        speakText("Kurang tepat! Coba lagi perhatikan ya...");
+      }
+
+      gameCurrentIndex++;
+      renderActiveGameCard();
+    }
+
+    /* ==========================================================================
+       7. KUIS 10 SOAL INTERAKTIF LOGIC
+       ========================================================================== */
+    function loadQuizQuestion(idx) {
+      if (idx >= dataQuiz.length) {
+        finishQuiz();
+        return;
+      }
+
+      quizCurrentIdx = idx;
+      quizAnswered = false;
+
+      const item = dataQuiz[idx];
+      document.getElementById('quiz-progress-num').innerText = `Soal ${idx + 1} / ${dataQuiz.length}`;
+      document.getElementById('quiz-q-text').innerText = `${idx + 1}. ${item.q}`;
+      document.getElementById('quiz-q-icon-box').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+      document.getElementById('quiz-explanation-box').classList.add('hidden');
+
+      const optionsContainer = document.getElementById('quiz-options-container');
+      optionsContainer.innerHTML = '';
+
+      item.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.id = `quiz-opt-${optIdx}`;
+        btn.onclick = () => selectQuizAnswer(optIdx);
+        btn.className = 'w-full text-left bg-slate-50 hover:bg-sky-50 border-2 border-slate-200 hover:border-sky-400 p-4 rounded-2xl font-heading font-bold text-sm text-slate-800 transition flex items-center justify-between group';
+        btn.innerHTML = `
+          <span>${optText}</span>
+          <i class="fa-solid fa-circle-check text-slate-300 group-hover:text-sky-500 text-lg"></i>
+        `;
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function readCurrentQuizQuestion() {
+      const item = dataQuiz[quizCurrentIdx];
+      const textToRead = `${item.q}. Pilihan jawaban: ${item.options.join(', ')}`;
+      speakText(textToRead);
+    }
+
+    function selectQuizAnswer(selectedIndex) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const item = dataQuiz[quizCurrentIdx];
+      const isCorrect = selectedIndex === item.answer;
+
+      const explBox = document.getElementById('quiz-explanation-box');
+      const explTitle = document.getElementById('quiz-expl-title');
+      const explText = document.getElementById('quiz-expl-text');
+
+      explBox.classList.remove('hidden');
+
+      // Highlight options
+      item.options.forEach((_, optIdx) => {
+        const btn = document.getElementById(`quiz-opt-${optIdx}`);
+        if (optIdx === item.answer) {
+          btn.className = 'w-full text-left bg-emerald-100 border-2 border-emerald-500 p-4 rounded-2xl font-heading font-bold text-sm text-emerald-900 shadow flex items-center justify-between';
+        } else if (optIdx === selectedIndex && !isCorrect) {
+          btn.className = 'w-full text-left bg-rose-100 border-2 border-rose-400 p-4 rounded-2xl font-heading font-bold text-sm text-rose-900 flex items-center justify-between';
+        } else {
+          btn.className = 'w-full text-left bg-slate-100 opacity-50 border-2 border-slate-200 p-4 rounded-2xl font-heading font-bold text-sm text-slate-500 flex items-center justify-between';
+        }
+      });
+
+      if (isCorrect) {
+        playSynthSound('correct');
+        quizScore += 10;
+        document.getElementById('quiz-temp-score').innerText = quizScore;
+        
+        explBox.className = 'p-4 rounded-2xl border-2 border-emerald-300 bg-emerald-50 text-emerald-900 space-y-2 transition-all';
+        explTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> Jawabanmu Benar! High Five! ✋`;
+        speakText("Jawabanmu Benar! Bagus sekali!");
+      } else {
+        playSynthSound('wrong');
+        explBox.className = 'p-4 rounded-2xl border-2 border-rose-300 bg-rose-50 text-rose-900 space-y-2 transition-all';
+        explTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-xl"></i> Masih Kurang Tepat!`;
+        speakText("Jawaban masih kurang tepat. Pelajari pembahasannya ya!");
+      }
+
+      explText.innerText = item.expl;
+    }
+
+    function nextQuizQuestion() {
+      playSynthSound('click');
+      if (quizCurrentIdx + 1 < dataQuiz.length) {
+        loadQuizQuestion(quizCurrentIdx + 1);
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      document.getElementById('quiz-active-box').classList.add('hidden');
+      document.getElementById('quiz-complete-box').classList.remove('hidden');
+
+      document.getElementById('quiz-final-score').innerText = quizScore;
+      
+      const badge = document.getElementById('quiz-grade-badge');
+      if (quizScore >= 80) {
+        badge.innerText = 'SANGAT BAIK / MUMTAZ ⭐⭐⭐⭐⭐';
+        badge.className = 'inline-block bg-emerald-600 text-white font-heading text-xs font-bold px-4 py-1.5 rounded-full shadow';
+      } else if (quizScore >= 60) {
+        badge.innerText = 'BAIK / JAYYID ⭐⭐⭐';
+        badge.className = 'inline-block bg-amber-500 text-white font-heading text-xs font-bold px-4 py-1.5 rounded-full shadow';
+      } else {
+        badge.innerText = 'PERLU BELAJAR LAGI 💪';
+        badge.className = 'inline-block bg-rose-500 text-white font-heading text-xs font-bold px-4 py-1.5 rounded-full shadow';
+      }
+
+      playSynthSound('fanfare');
+      speakText(`Selamat ${currentStudent.name || 'Siswa'}! Kuis telah selesai. Nilai akhirmu adalah ${quizScore}`);
+
+      // Auto save to history log
+      saveToStudentHistory({
+        name: currentStudent.name || 'Siswa Tanpa Nama',
+        class: currentStudent.class || 'Kelas 1',
+        score: quizScore,
+        date: new Date().toLocaleDateString('id-ID'),
+        feedback: 'Telah Menyelesaikan Kuis 10 Soal'
+      });
+    }
+
+    function restartQuiz() {
+      playSynthSound('click');
+      quizCurrentIdx = 0;
+      quizScore = 0;
+      document.getElementById('quiz-temp-score').innerText = '0';
+      document.getElementById('quiz-active-box').classList.remove('hidden');
+      document.getElementById('quiz-complete-box').classList.add('hidden');
+      loadQuizQuestion(0);
+    }
+
+    /* ==========================================================================
+       8. DIGITAL CERTIFICATE MODAL LOGIC
+       ========================================================================== */
+    function showCertificateModal() {
+      playSynthSound('fanfare');
+      document.getElementById('modal-certificate').classList.remove('hidden');
+
+      document.getElementById('cert-student-name').innerText = currentStudent.name || 'Siswa Berprestasi';
+      document.getElementById('cert-student-class').innerText = `${currentStudent.class || 'Kelas 1'} • MI Almaarif 02 Singosari`;
+      document.getElementById('cert-score-num').innerText = quizScore;
+      
+      const gradeText = document.getElementById('cert-grade-text');
+      if (quizScore >= 80) gradeText.innerText = 'MUMTAZ (SANGAT BAIK)';
+      else if (quizScore >= 60) gradeText.innerText = 'JAYYID (BAIK)';
+      else gradeText.innerText = 'CUKUP (TETAP SEMANGAT)';
+
+      const today = new Date();
+      document.getElementById('cert-date-text').innerText = `${today.getDate()} ${today.toLocaleString('id-ID', { month: 'long' })} ${today.getFullYear()}`;
+    }
+
+    function closeCertificateModal() {
+      document.getElementById('modal-certificate').classList.add('hidden');
+    }
+
+    /* ==========================================================================
+       9. STUDENT FEEDBACK & HISTORY LOGIC (LOCALSTORAGE)
+       ========================================================================== */
+    function submitFeedback(e) {
+      e.preventDefault();
+      playSynthSound('correct');
+
+      const reaction = document.querySelector('input[name="reaction"]:checked').value;
+      const comment = document.getElementById('feedback-comment').value.trim();
+
+      if (!comment) return;
+
+      saveToStudentHistory({
+        name: currentStudent.name || 'Siswa Tanpa Nama',
+        class: currentStudent.class || 'Kelas 1',
+        score: quizScore || 0,
+        reaction: reaction,
+        comment: comment,
+        date: new Date().toLocaleDateString('id-ID')
+      });
+
+      document.getElementById('feedback-form').reset();
+      speakText("Terima kasih atas masukan dan kesan belajarmu!");
+      alert("Masukan berhasil dikirim dan tersimpan di rekapitulasi siswa!");
+    }
+
+    function saveToStudentHistory(record) {
+      let history = JSON.parse(localStorage.getItem('cakep_mia02_student_logs')) || [];
+      history.unshift(record);
+      localStorage.setItem('cakep_mia02_student_logs', JSON.stringify(history));
+      renderStudentHistory();
+    }
+
+    function renderStudentHistory() {
+      const container = document.getElementById('student-history-list');
+      const countEl = document.getElementById('total-students-count');
+      const history = JSON.parse(localStorage.getItem('cakep_mia02_student_logs')) || [];
+
+      countEl.innerText = history.length;
+      container.innerHTML = '';
+
+      if (history.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-slate-400 text-xs">
+            <i class="fa-solid fa-folder-open text-3xl mb-2"></i>
+            <p>Belum ada riwayat siswa terdaftar pada peranti ini.</p>
+          </div>
+        `;
+        return;
+      }
+
+      history.forEach((h, idx) => {
+        const item = document.createElement('div');
+        item.className = 'bg-slate-50 p-3.5 rounded-2xl border border-slate-200 flex flex-col space-y-1 text-xs';
+        
+        const reactionEmoji = h.reaction === 'Sangat Senang' ? '🤩' : h.reaction === 'Senang' ? '😊' : '🙂';
+        
+        item.innerHTML = `
+          <div class="flex items-center justify-between font-bold text-slate-800">
+            <span class="flex items-center gap-1.5 text-brand-900 font-heading">
+              <i class="fa-solid fa-circle-user text-brand-600"></i> ${h.name} (${h.class})
+            </span>
+            <span class="text-[10px] text-slate-400 font-normal">${h.date}</span>
+          </div>
+          <div class="flex items-center justify-between text-slate-600 pt-1">
+            <span>Nilai Kuis: <strong class="text-emerald-600 font-heading">${h.score}</strong></span>
+            <span>Reaksi: <strong>${reactionEmoji} ${h.reaction || 'Senang'}</strong></span>
+          </div>
+          ${h.comment ? `<p class="italic text-slate-500 bg-white p-2 rounded-xl border border-slate-100 text-[11px] mt-1">"${h.comment}"</p>` : ''}
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function clearStudentHistory() {
+      if (confirm("Apakah Anda yakin ingin menghapus seluruh log riwayat siswa di peranti ini?")) {
+        localStorage.removeItem('cakep_mia02_student_logs');
+        renderStudentHistory();
+      }
+    }
+  </script>
+
+</body>
+</html>
